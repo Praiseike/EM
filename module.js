@@ -1,0 +1,3 @@
+exports.getdate = () => {
+    return Date();
+}

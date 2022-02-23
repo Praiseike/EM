@@ -1,0 +1,93 @@
+body{
+    background:#222d32;
+    font-family: 'Roboto';
+    margin: 0px;
+}
+.container{
+    height:auto;
+    display: flex;
+    flex-direction:column;
+    text-align:center;
+    align-items:center;
+    justify-content:center;
+    width: 400px;
+    margin: auto;
+}
+
+.form-container{
+    margin: auto;
+    margin-top:75px;
+    width: 400px;
+    text-align:center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height:auto;
+    background:#1a2226;
+    text-align:center;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+}
+
+.login-title{
+    margin-top:30px;
+    text-align:center;
+    font-size:28px;
+    letter-spacing: 2px;
+    /* font-weight: bold; */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color:#ecf0f5;
+}
+
+form{
+    margin-top:25px;
+    text-align:left;
+}
+
+input[type=email] ,input[type=password],input[type=username]{
+    background:#1a2226;
+    width: 90%;
+    border:none;
+    border-bottom:2px solid #0bd8de;
+    border-radius:0px;
+    outline: 0;
+    margin: 20px;
+    margin-bottom: 20px;
+    padding-left: 0px;
+    color: #ecf0f5;
+    padding-bottom: 15px;
+    font-size: 15px;
+}
+
+
+button{
+    width: 100px;
+    height: 40px;
+    border: 1px solid #0bd8de;
+    float: right;
+    background: none;
+    outline:none;
+    color: #0bd8de;
+    margin: 20px;
+    cursor: pointer;
+}
+
+.signup-btn
+{
+    width: 100%;
+    margin:0px;
+    margin-top: 20px;
+    width: 380px;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.signup-btn-container{
+    width: 100%;    
+}
+
+button:hover{
+    background: #0bd8de;
+    color:white;
+}
+

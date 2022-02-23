@@ -1,0 +1,227 @@
+html{
+    width: auto;
+    margin: 0;
+    padding: 0;
+    /* background: #f3fefe !important; */
+}
+
+body{
+    margin: 0px;
+    width: 100%;
+    background-image: url('./assets/images/grey-background.jpg') !important;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: fixed;
+    display:block;
+}
+
+nav{
+    font-family: 'Poppins','Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 20px;
+    background-color: white;
+    color: white;
+    box-shadow: 0px 0px 8px rgba(0,0,0,0.2);
+}
+
+.collapse{
+    justify-content: right;
+    padding-right: 20px;
+}
+.collapse > .user-btn{
+    margin-left: 100px;
+}
+.nav-item{
+    margin: 0 10px;;
+}
+.nav-link{
+    font-size: 17px !important;
+}
+.login-btn{
+    text-align: center;
+    border-radius: 2px;
+    cursor:pointer;
+    /* box-shadow: 0px 0px 4px #0d6efd; */
+    box-shadow: 0px 0px 2px 0 #0d6efd;
+
+}
+
+
+.user-btn{
+    background-color: rgb(87, 87, 87) !important;
+    width: 50px;
+    height: 50px;
+    justify-content: center;
+    align-items: center;
+    border-radius: 25px;
+    cursor:pointer;
+
+}
+nav button.btn {
+    margin-left: 20px;
+    float: left;
+    margin-left: 20px;
+    width: 150px;
+    font-size: 20px;
+}
+
+button.btn > .bg-primary{
+    background-color: orange;
+}
+.heading{
+    height:76px;
+    width: 100%;
+}
+
+/* carousel image background darkening  */  
+.carousel-item:after{
+    content:"";
+    position:absolute;
+    top:0;
+    bottom:0;
+    left:0;
+    right:0;
+    background:rgba(0,0,0,0.3);
+}
+
+.carousel-caption{
+    z-index: 2;
+    /* width:50%; */
+    top: 200px;
+}
+
+.carousel{
+    position: relative;
+}
+ 
+h1 {
+    font-size: 4.5rem;
+}
+
+section{
+    height: 100vh;
+    position: relative;
+}
+
+.heading-0{
+    font-size:2.5rem;
+    margin-top: 100px;
+    color: rgba(0,0,0,0.7) !important;
+}
+
+.bd-placeholder-img {
+    font-size: 1.125rem;
+    text-anchor: middle;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    user-select: none;
+}
+
+
+
+.card{
+    margin: 10px;
+    width: 16rem;
+    float: right;
+}
+
+
+.card-img{
+    cursor: pointer;
+    height: 8rem;
+    object-fit: cover;
+}
+.card{
+    /* background-color: rgb(219, 219, 219); */
+    color: rgba(0, 0, 0, 1);
+    /* box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23); */
+    height:400px;
+}
+.card-img:hover{
+    transform: scale(1.01);
+}
+div.btn.btn-danger, a.btn.btn-success{
+    width: 70px !important;
+}
+
+p.card-text{
+    height: 50px;
+    overflow: hidden;
+}
+
+.price{
+    background-color: rgba(0, 0, 0, 1);
+    color: white;
+}
+
+.price:hover{
+    color: white !important;
+    cursor:default;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.contact-section{
+    display: flex;
+    align-items: center;
+    position: relative;
+    height: 60vh;
+}
+
+.contact-section > .container{
+    width: 500px;
+    margin-left: 100px;
+}
+
+
+.contact-section >form {
+    text-align: right;
+}
+
+.contact-section btn{
+    float: right;
+}
+
+
+footer{
+    margin-top:100px;
+    height: 86px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;    
+    background-color: #0d6efd;
+    position: relative;
+    width:100%;
+}
+
+.footer-text{
+    color: white;
+}
+
