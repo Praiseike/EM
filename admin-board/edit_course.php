@@ -7,21 +7,20 @@
     
     include 'php/db.php';
 
-    $result = $con->query("SELECT * FROM courses");
-    $courses = Array();
-    $count = 0;
-    if($result->num_rows > 0)
-    {
-        while($row = $result->fetch_assoc())
+
+    if(isset($_GET['id'])){
+
+        $id = $_GET['id'];       
+        $id = filter_var($id,FILTER_SANITIZE_STRING);
+        $stmt = $con->prepare("SELECT * FROM courses WHERE CODE = ?");
+        $stmt->bind_param('s',$id);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        if($result->num_rows > 0)
         {
-            array_push($courses,$row);
-            $count++;
+            $row = $result->fetch_assoc();
         }
-        // in order to view the latest
-        $courses = array_reverse($courses);
-    }
-    else{
-        $_SESSION['message'] = 'Create courses and view them here';
+        $stmt->close();
     }
 
     $con->close();
@@ -37,7 +36,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
         <meta name="author" content="" />
-        <title>New course</title>
+        <title>Edit course</title>
         <link href="css/styles.css" rel="stylesheet" />
         <script src='../assets/fontawesome-free-6.0.0-beta3-web/js/all.min.js'></script>
         
@@ -117,22 +116,17 @@
                             
                             <div class="collapse" id="collapseAccounts" aria-labelledby="headingTwo" data-bs-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
-                                    <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#pagesCollapseAuth" aria-expanded="false" aria-controls="pagesCollapseAuth">
-                                        Authentication
-                                        <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                                    <a class="nav-link collapsed" href="register" >
+                                        Add User
                                     </a>
-                                    <div class="collapse" id="pagesCollapseAuth" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordionPages">
-                                        <nav class="sb-sidenav-menu-nested nav">
-                                            <a class="nav-link" href="login">
-                                                Login</a>
-                                            <a class="nav-link" href="register">Register</a>
-                                            <a class="nav-link" href="password">Forgot Password</a>
-                                        </nav>
-                                    </div>
-  
+
+                                    <a class="nav-link collapsed" href="password" >
+                                        Forgot Password
+                                    </a>
+
                                 </nav>
                             </div>
-                            <div class="sb-sidenav-menu-heading">Addons</div>
+                            <div class="sb-sidenav-menu-heading">Data</div>
                             <a class="nav-link" href="charts">
                                 <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
                                 Charts
@@ -145,7 +139,7 @@
                     </div>
                     <div class="sb-sidenav-footer">
                         <div class="small">Logged in as:</div>
-                        ADMIN
+                        <?= $_SESSION['name'] ?>
                     </div>
                 </nav>
             </div>
@@ -153,62 +147,66 @@
             <div id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid px-4">
-                        <h1 class="mt-4">Courses</h1>
+                        <h1 class="mt-4">Edit Course</h1>
                         <ol class="breadcrumb mb-4">
                             <li class="breadcrumb-item"><a href="index">Dashboard</a></li>
-                            <li class="breadcrumb-item active">View courses</li>
-                            <li class="breadcrumb-item active">Number of courses = <?= $count ?></li>
+                            <li class="breadcrumb-item active">Edit course</li>
                         </ol>
                 
                         <div class="container mb-3">
-                        <?php if($count === 0) { ?>    
-                            <div class="container text-center p-5 mx-auto" style="position: relative;">
-                                <img src="assets/img/blank.svg" class="h-25 w-100">
-                                <a href="create_course?" class="btn btn-primary mt-3">Create Course</a>
-                            </div>;
-                        <?php } else{ ?>
-                            <?php foreach($courses as $course): ?>
-                                <div class="card mb-4">
-                                    <div class="card-header">0 videos - <?= $course['DATE'] ?></div>
-                                    <div class="card-body">
-                                        <h1><?= $course["TITLE"] ?></h1>
-                                        <p><?= $course["DESCRIPTION"] ?></p>
-                                        <a href="edit_course?id=<?= $course['CODE'] ?>"><button class="btn btn-primary">Open <i class="fas fa-pen" ></i></button></a>
-                                        <!-- <a href="delete_course?id=<?=$course['CODE'] ?>"> -->
-                                            <button onclick="deleteCourse('<?=$course['CODE'] ?>')"  class=" m-2 btn btn-danger">Delete <i class="fas fa-trash" ></i></button>
-                                        <!-- </a> -->
+                        <form action='./php/register_course.php' enctype="multipart/form-data" method="post" class="row align-items-left mx-5 w-75">
+                            <div class="mb-3">
+                                <label class="form-label" for="video-title">Enter title</label>
+                                <input type="text" value ="<?= $row['TITLE'] ?>" class="form-control" id="video-title" required name="course-title">
+                                <div id="title-help" class="form-text">Make sure to give a title</div>
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label" for="video-description">Enter description</label>
+                                <textarea type="text" class="form-control" id="video-description" required name="course-description"><?= $row['DESCRIPTION'] ?></textarea>
+                                <div id="title-help" class="form-text">Video description</div>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label class="form-label" for="video-price">Enter price</label>
+                                <input value ="<?= $row['PRICE'] ?>" type="number" class="form-control" id="video-price" required name="course-price">
+                                <div id="title-help" class="form-text">Price is in dollars</div>
+                            </div>
+
+                            <img src="../videos/<?= $row['CODE'].'/'.$row['THUMBNAIL'] ?>"  style="margin-left: 10px;margin-bottom: 20px;height: 150px;width:200px;" class='img-thumbnail'>
+                            <div class="mb-3">
+                                <label for="formFile" class="form-label">Change image</label>
+                                <input class="form-control" type="file" required id="course-thumbnail" name="course-thumbnail">
+                                <div id="title-help" class="form-text">file size < 3mb (png / jpg)</div>
+                            </div>
+                            <?php if(isset($_SESSION['error-msg'])) :?>
+                                <div class="mb-3">
+                                    <div class="alert alert-danger" role='alert'>
+                                        <?= $_SESSION['error-mgs'] ?>
+                                        <!-- <?php// session_destroy(); ?> -->
                                     </div>
                                 </div>
-                            <?php endforeach ?>
-                        <?php } ?>
-                    </div>
+                            <?php endif ?>
+                            
+                            <div class="mb-3">
+                                <!-- <button type="submit" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Done</button> -->
+                                <button type="submit" class="btn btn-primary" >Done</button>
+                            </div>
+
+                        </form>
+
+
+                        </div>
 
                     </div>
                 </main>
                 
-                <!-- Modal -->
-                <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                    <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                        <h5 class="modal-title" id="staticBackdropLabel">Delete course</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            Are you sure you want to delete this course?
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button id="delete-btn" type="button" class="btn btn-danger">Delete</button>
-                        </div>
-                    </div>
-                    </div>
-                </div>
+               
                 
                 <footer class="py-4 bg-light mt-auto">
                     <div class="container-fluid px-4">
                         <div class="d-flex align-items-center justify-content-between small">
-                            <div class="text-muted">Copyright &copy; EM Blochain Hub 2022</div>
+                            <div class="text-muted">Copyright &copy; Empowered Blockchain Hub <?= Date('Y') ?></div>
                             <div>
                                 <a href="#">Privacy Policy</a>
                                 &middot;

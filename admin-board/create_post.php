@@ -5,6 +5,40 @@
         header('Location: login');
     }
 
+
+
+
+    if(isset($_POST['post-title'],$_POST['post-text']))
+    {
+
+        $con = new mysqli("localhost","root","",'posts');
+        if($con->connect_errno){
+            die("Unable to connect to database posts");
+        }
+
+
+        $title = $_POST['post-title'];
+        $text = $_POST['post-text'];
+    
+
+
+        $title = filter_var($title,FILTER_SANITIZE_STRING);
+        $code = uniqid();
+        $timestamp = Date('Y-m-d');
+        $stmt = $con->prepare("INSERT INTO posts(TITLE,CONTENT,CODE,TIMESTAMP) VALUES(?, ?, ?, ?) ");
+        $stmt->bind_param('ssss',$title,$text,$code,$timestamp);
+        $s = $stmt->execute();
+        if(!$s){
+            die("unable to insert into table posts");
+        }else{
+            
+        }
+
+    }
+
+
+
+
 ?>
 
 <!DOCTYPE html>
@@ -96,31 +130,16 @@
                             
                             <div class="collapse" id="collapseAccounts" aria-labelledby="headingTwo" data-bs-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
-                                    <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#pagesCollapseAuth" aria-expanded="false" aria-controls="pagesCollapseAuth">
-                                        Authentication
-                                        <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                                    <a class="nav-link collapsed" href="register" >
+                                        Add User
                                     </a>
-                                    <div class="collapse" id="pagesCollapseAuth" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordionPages">
-                                        <nav class="sb-sidenav-menu-nested nav">
-                                            <a class="nav-link" href="login">Login</a>
-                                            <a class="nav-link" href="register">Register</a>
-                                            <a class="nav-link" href="password">Forgot Password</a>
-                                        </nav>
-                                    </div>
-                                    <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#pagesCollapseError" aria-expanded="false" aria-controls="pagesCollapseError">
-                                        Error
-                                        <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                                  
+                                    <a class="nav-link collapsed" href="password">
+                                        Forgot password
                                     </a>
-                                    <div class="collapse" id="pagesCollapseError" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordionPages">
-                                        <nav class="sb-sidenav-menu-nested nav">
-                                            <a class="nav-link" href="401">401 Page</a>
-                                            <a class="nav-link" href="404">404 Page</a>
-                                            <a class="nav-link" href="500">500 Page</a>
-                                        </nav>
-                                    </div>
                                 </nav>
                             </div>
-                            <div class="sb-sidenav-menu-heading">Addons</div>
+                            <div class="sb-sidenav-menu-heading">Data</div>
                             <a class="nav-link" href="charts">
                                 <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
                                 Charts
@@ -133,7 +152,8 @@
                     </div>
                     <div class="sb-sidenav-footer">
                         <div class="small">Logged in as:</div>
-                        ADMIN
+                        <?= $_SESSION['name'] ?>
+                        
                     </div>
                 </nav>
             </div>
@@ -146,18 +166,28 @@
                             <li class="breadcrumb-item active">Create Post</li>
                         </ol>
 
+                    <div class="container">
+                        <form action='create_post' method='post'>
+                            <div class="form-group mb-3">
+                                <label for='title'>Enter title</label>
+                                <input required type='text' class='form-control' name='post-title' id='title'>
+                            </div>
+                            <div class="form-group mb-3">
+                                <label for='text'>Enter text</label>
+                                <textarea required class='form-control' rows="12" name='post-text' id='text'></textarea>
+                            </div>
+                            <button type='submit' class='btn btn-primary'>post</button>
+                        </form>
 
-
-
-                        
-                        <div style="height: 100vh"></div>
-                        <div class="card mb-4"><div class="card-body">When scrolling, the navigation stays at the top of the page. This is the end of the static navigation demo.</div></div>
                     </div>
+                    </div>
+
+
                 </main>
                 <footer class="py-4 bg-light mt-auto">
                     <div class="container-fluid px-4">
                         <div class="d-flex align-items-center justify-content-between small">
-                            <div class="text-muted">Copyright &copy; Your Website 2021</div>
+                        <div class="text-muted">Copyright &copy; Empowered Blockchain Hub <?= Date('Y') ?></div>
                             <div>
                                 <a href="#">Privacy Policy</a>
                                 &middot;
