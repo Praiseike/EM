@@ -47,7 +47,7 @@
 
     <div class="main-container text-center" style="height: 75vh">
         <div class="card">
-                <h1 class="alert alert-danger text-dark">Alert</h1>
+                <h1 class="alert alert-danger text-dark"><i class='fa-solid fa-triangle-exclamation'></i></h1>
             <div class='card-body'>
                 <h1 >You need to login to buy courses</h1>
                 <a href="login.php?location=<?= urlencode($_SERVER['REQUEST_URI']) ?>"><div class='btn btn-primary'>Login</div></a>

@@ -62,7 +62,7 @@
         $curl = curl_init();
         $email = filter_var($_SESSION['email'],FILTER_VALIDATE_EMAIL);
         $amount = filter_var($price,FILTER_VALIDATE_INT);
-        $callback_url = "localhost/em/callback.php";
+        $callback_url = "em/callback.php";
         curl_setopt_array($curl,array(
             CURLOPT_URL => "https://api.paystack.co/transaction/initialize",
             CURLOPT_RETURNTRANSFER => true,

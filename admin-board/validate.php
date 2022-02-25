@@ -34,7 +34,7 @@
                 if(password_verify($password,$user_password)){
                     // user login was successful
                     session_regenerate_id();
-                    $_SESSION['admin-loggedin'] = TRUE;
+                    $_SESSION['admin-loggedin'] = true;
                     $_SESSION['name'] = $username;
                     $_SESSION['id'] = $id;
                     header('location: ./index');

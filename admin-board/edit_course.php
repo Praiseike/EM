@@ -103,7 +103,7 @@
                             </div>
                             <div class="collapse" id="collapseBlogPost" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav">
-                                    <a class="nav-link" href="#!">Posts</a>
+                                    <a class="nav-link" href="view_posts">Posts</a>
                                 </nav>
                             </div>
                             

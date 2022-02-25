@@ -78,8 +78,21 @@
           Providing Blockchain solutions and bringing Blockchain/cryptocurrency education to all Africans and the world at large
         </p>    
     </div>
+  <div class="row founders-note">
+  <h2>    THE NEW NORMAL: BLOCKCHAIN AND CRYPTOCURRENCY</h2>
+      <p>
 
+      “Cryptocurrency will do to bankers what E-mail did to post office workers”
+      Unyime Akpan
+      (Founder, Empowered Blockchain Hub)
 
+      In the light of a decentralized way of carrying out transactions, the crypto and blockchain space has been gaining large grounds as well as its users. In fact, several companies have adopted the use of blockchain in carrying out their services. This is because blockchain gives its users a new paradigm of doing business and the opportunity for them to be in charge of their money. Millions stream to several websites daily and platforms in order to gain an education and understanding of the space for effective participation. 
+      In order to meet this need, Empowered Blockchain Hub was founded in the midyear of 2021 by Unyime Akpan and a group of young tech enthusiasts. Empowered Blockchain Hub seeks to empower people through the acquisition of the knowledge of blockchain technology and cryptocurrency in every possible way. The hub offers services in blockchain and cryptocurrency education and consultancy, GameFi, NFTs, Metaverse, crypto analysis and trading, airdrops, as well as how to code and develop on blockchain both virtually and on site. This is why it is said about Empowered Blockchain that, “We bring the knowledge of blockchain to your doorstep”. We also offer services like, Peer-to-Peer Trading.
+      With a hand-on-deck team of young professionals, be ready to broaden your horizon on the several opportunities and possibilities of blockchain and cryptocurrency and in fact, surf the shores of this goldmine. At Empowered Blockchain Hub we say, “The possibilities are endless”. So, let’s Moon Up!
+
+      Connect with us on LinkedIn @linkedin.com/in/empowered-blockchain-cryptocurrency-hub-973080224, Facebook @ , Telegram
+    </p>
+</div>
   </section>
   <footer>
     <div class="footer-text">Empowered Blockchain Hub &copy; <?= date('Y') ?></div>

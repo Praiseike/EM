@@ -5,26 +5,27 @@
         header("Location: login");
     }
     
-    include 'php/db.php';
-
-
+   
+    $con = new mysqli("localhost","root","","posts");
+    if($con->connect_errno){
+        die("Unble to connect to datases posts");
+    }
     
     
-    $result = $con->query("SELECT * FROM courses");
-    $courses = Array();
+    $result = $con->query("SELECT * FROM posts");
+    $posts = Array();
     $count = 0;
     if($result->num_rows > 0)
     {
         while($row = $result->fetch_assoc())
         {
-            array_push($courses,$row);
+            array_push($posts,$row);
             $count++;
         }
         // in order to view the latest
-        $courses = array_reverse($courses);
+        $posts = array_reverse($posts);
     }
     else{
-        $_SESSION['message'] = 'Create courses and view them here';
     }
 
 
@@ -41,7 +42,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
         <meta name="author" content="" />
-        <title>New course</title>
+        <title>View posts</title>
         <link href="css/styles.css" rel="stylesheet" />
         <script src='../assets/fontawesome-free-6.0.0-beta3-web/js/all.min.js'></script>
         
@@ -50,7 +51,7 @@
     <body class="sb-nav-fixed">
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark" style="background-color: rgb(0,6,20) !important;">
             <!-- Navbar Brand-->
-            <a class="navbar-brand ps-3" href="index">Video</a>
+            <a class="navbar-brand ps-3" href="index">Dashboard</a>
             <!-- Sidebar Toggle-->
             <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
             <!-- Navbar Search-->
@@ -108,7 +109,7 @@
                             </div>
                             <div class="collapse" id="collapseBlogPost" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav">
-                                    <a class="nav-link" href="#!">Posts</a>
+                                    <a class="nav-link" href="view_posts">Posts</a>
                                 </nav>
                             </div>
                             
@@ -152,36 +153,47 @@
             <div id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid px-4">
-                        <h1 class="mt-4">Courses</h1>
+                        <h1 class="mt-4">Posts</h1>
                         <ol class="breadcrumb mb-4">
                             <li class="breadcrumb-item"><a href="index">Dashboard</a></li>
-                            <li class="breadcrumb-item active">View courses</li>
-                            <li class="breadcrumb-item active">Number of courses = <?= $count ?></li>
+                            <li class="breadcrumb-item active">View posts</li>
+                            <li class="breadcrumb-item active">Number of posts = <?= $count ?></li>
                         </ol>
                 
                         <div class="container mb-3">
                         <?php if($count === 0) { ?>    
                             <div class="container text-center p-5 mx-auto" style="position: relative;">
                                 <img src="assets/img/blank.svg" class="h-25 w-100">
-                                <a href="create_course?" class="btn btn-primary mt-3">Create Course</a>
+                                <a href="create_post" class="btn btn-primary mt-3">Create Post</a>
                             </div>;
                         <?php } else{ ?>
-                            <?php foreach($courses as $course): ?>
+                            <?php foreach($posts as $post): ?>
                                 <div class="card mb-4">
-                                    <div class="card-header">0 videos - <?= $course['DATE'] ?></div>
+                                    <div class="card-header">0 posts - <?= $post['TIMESTAMP'] ?></div>
                                     <div class="card-body">
-                                        <h1><?= $course["TITLE"] ?></h1>
-                                        <p><?= $course["DESCRIPTION"] ?></p>
-                                        <a href="edit_course?id=<?= $course['CODE'] ?>"><button class="btn btn-primary">Open <i class="fas fa-pen" ></i></button></a>
-                                        <!-- <a href="delete_course?id=<?=$course['CODE'] ?>"> -->
-                                            <button onclick="deleteCourse('<?=$course['CODE'] ?>')"  class=" m-2 btn btn-danger">Delete <i class="fas fa-trash" ></i></button>
+                                        <h1><?= $post["TITLE"] ?></h1>
+                                        <a href="edit_post?id=<?= $post['CODE'] ?>"><button class="btn btn-primary">Open <i class="fas fa-pen" ></i></button></a>
+                                        <!-- <a href="delete_course?id=<?=$post['CODE'] ?>"> -->
+                                            <button onclick="deletePost('<?=$post['CODE'] ?>')"  class=" m-2 btn btn-danger">Delete <i class="fas fa-trash" ></i></button>
                                         <!-- </a> -->
                                     </div>
                                 </div>
                             <?php endforeach ?>
                         <?php } ?>
                     </div>
+                <script>
+                    var post=null;
+                    const deleteAction = () => {
+                        if (post)
+                            window.location = "delete_post?id=" + post;
+                    }
 
+                    const deletePost = (code) => {
+                        post = (code)? code: '';
+                        $('#staticBackdrop').modal('show');
+                        $("#delete-btn")[0].onclick = deleteAction;
+                    }                    
+                </script>
                     </div>
                 </main>
                 
@@ -221,7 +233,6 @@
         <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script> -->
         <script src="../assets/bootstrap-5.0.2-dist/js/bootstrap.bundle.min.js"></script>
         <script src="../assets/jquery.min.js"></script>
-        <script src='./js/worker.js'></script>
         <script src="js/scripts.js"></script>
     </body>
 </html>

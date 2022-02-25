@@ -33,7 +33,6 @@
                                         </form>
                                     </div>
                                     <div class="card-footer text-center py-3">
-                                        <div class="small"><a href="register">Need an account? Sign up!</a></div>
                                     </div>
                                 </div>
                             </div>

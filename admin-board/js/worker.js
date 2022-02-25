@@ -8,7 +8,7 @@
 var course=null;
 const deleteAction = () => {
     if (course)
-        window.location = "delete_course?id=" + course;
+        window.location = "delete_post?id=" + course;
 }
 
 const deleteCourse = (code) => {

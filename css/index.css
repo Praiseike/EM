@@ -68,7 +68,7 @@ button.btn > .bg-primary{
     background-color: orange;
 }
 .heading{
-    height:76px;
+    /* height:76px; */
     width: 100%;
 }
 
@@ -86,7 +86,7 @@ button.btn > .bg-primary{
 .carousel-caption{
     z-index: 2;
     /* width:50%; */
-    top: 200px;
+    /* top: 200px; */
 }
 
 .carousel{
@@ -157,27 +157,6 @@ p.card-text{
     color: white !important;
     cursor:default;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

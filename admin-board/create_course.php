@@ -82,7 +82,7 @@
                             </div>
                             <div class="collapse" id="collapseBlogPost" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav">
-                                    <a class="nav-link" href="#!">Posts</a>
+                                    <a class="nav-link" href="view_posts">Posts</a>
                                 </nav>
                             </div>
                             
@@ -160,7 +160,8 @@
                             <?php if(isset($_SESSION['error-msg'])) :?>
                                 <div class="mb-3">
                                     <div class="alert alert-danger" role='alert'>
-                                        <?= $_SESSION['error-mgs'] ?>
+                                        <?= $_SESSION['error-msg'] ?>
+                                        <?php $_SESSION['error-msg'] = null ?>
                                         <!-- <?php// session_destroy(); ?> -->
                                     </div>
                                 </div>
