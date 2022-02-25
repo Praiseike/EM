@@ -1,0 +1,136 @@
+body{
+    margin: 0px;
+    width: 100% !important;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: fixed;
+}
+
+nav{
+    font-family: 'Poppins','Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 20px;
+    background-color: white;
+    color: white;
+    box-shadow: 0px 0px 8px rgba(0,0,0,0.2);
+}
+
+.collapse{
+    justify-content: right;
+    padding-right: 20px;
+}
+
+.collapse > .user-btn{
+    margin-left: 100px;
+}
+
+.nav-item{
+    margin: 0 10px;;
+}
+
+.nav-link{
+    font-size: 17px !important;
+}
+
+.login-btn{
+    text-align: center;
+    border-radius: 2px;
+    cursor:pointer;
+    /* box-shadow: 0px 0px 4px #0d6efd; */
+    box-shadow: 0px 0px 2px 0 #0d6efd;
+
+}
+
+button.btn {
+    margin-left: 20px;
+    float: left;
+    margin-left: 20px;
+    width: 150px;
+    font-size: 20px;
+}
+
+section{
+    margin-top: 100px;
+}
+
+section.section-0{
+    width: 100%;
+}
+
+.flex-container{
+    margin: auto;
+    width:90%;
+    z-index: 20;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    height: auto;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+div.container.form-container{
+    margin: auto;
+    margin-top: 50px;
+    margin-bottom: 50px;
+    width: 70%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+div.container.form-container.row{
+    width: 75%;
+}
+form.btn.btn-primary{
+    background-color: violet;;
+}
+
+
+div.card{
+    flex-direction: row;
+    width:23rem;
+    border: 1px solid grey;
+}
+
+div.card-body{
+    width:20rem;
+    background-color: yellow;
+}
+
+div.card-title{
+    width:100%;
+}
+footer{
+    margin-top: 100px;
+    height: 86px;
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;    
+    background-color: #0d6efd;
+}
+
+.footer-text{
+    color: white;
+}
+
+
+
+@media screen and (max-width:676px){
+    input.form-control{
+        width:300px;
+    }
+    .flex-container{
+        width:90%;
+        display: flex;
+        flex-direction: row;    
+        flex-wrap: wrap;
+    }
+    .card{
+        width:100%;
+    }
+
+    .row.w-75{
+        /* background-color: orange; */
+        width: 400px !important;
+    }
+}
