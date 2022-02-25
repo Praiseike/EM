@@ -8,7 +8,7 @@
    
     $con = new mysqli("localhost","root","","posts");
     if($con->connect_errno){
-        die("Unble to connect to datases posts");
+        die("Unble to connect to database posts");
     }
     
     
