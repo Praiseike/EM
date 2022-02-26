@@ -160,6 +160,12 @@
                                 <label for='title'>Enter title</label>
                                 <input value="<?= $row['TITLE'] ?>" required type='text' class='form-control' name='post-title' id='title'>
                             </div>
+                            <img src="../videos/<?= $row['CODE'].'/'.$row['THUMBNAIL'] ?>"  style="margin-left: 10px;margin-bottom: 20px;height: 150px;width:200px;" class='img-thumbnail'>
+                            <div class="form-group mb-3">
+                                <label for='image'>Select image</label>
+                                <input required type='file' class='form-control' name='post-image' id='image'>
+                            </div>
+
                             <div class="form-group mb-3">
                                 <label for='text'>Enter text</label>
                                 <textarea required class='form-control' rows="12" name='post-text' id='text'><?= $row['CONTENT']?></textarea>

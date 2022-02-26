@@ -124,7 +124,6 @@
                                 <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
                                     <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#pagesCollapseAuth" aria-expanded="false" aria-controls="pagesCollapseAuth">
                                         Add User
-                                        <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                                     </a>
                                     <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#pagesCollapseError" aria-expanded="false" aria-controls="pagesCollapseError">
                                         Forgot Password
@@ -169,7 +168,7 @@
                         <?php } else{ ?>
                             <?php foreach($posts as $post): ?>
                                 <div class="card mb-4">
-                                    <div class="card-header">0 posts - <?= $post['TIMESTAMP'] ?></div>
+                                    <div class="card-header"><?= $post['TIMESTAMP'] ?></div>
                                     <div class="card-body">
                                         <h1><?= $post["TITLE"] ?></h1>
                                         <a href="edit_post?id=<?= $post['CODE'] ?>"><button class="btn btn-primary">Open <i class="fas fa-pen" ></i></button></a>

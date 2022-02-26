@@ -32,7 +32,7 @@
                 <a class="nav-link" href="courses.php">Courses</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link"href="#">Blog</a>
+                <a class="nav-link"href="blog.php">Blog</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link active" href="about.php" tabindex="-1" aria-disabled="true">About Us  </a>

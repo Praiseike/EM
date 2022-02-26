@@ -61,10 +61,10 @@ section.section-0{
     width:90%;
     z-index: 20;
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(3, 1fr);
     height: auto;
-    padding-left: 20px;
-    padding-right: 20px;
+    /* padding-left: 20px; */
+    /* padding-right: 20px; */
 }
 
 div.container.form-container{
@@ -85,19 +85,49 @@ form.btn.btn-primary{
 
 
 div.card{
+    margin-bottom: 20px;
     flex-direction: row;
     width:23rem;
     border: 1px solid grey;
+    cursor: pointer;
+    transition: all .3s ease-in-out;
 }
 
-div.card-body{
-    width:20rem;
-    background-color: yellow;
+div.card:hover{
+    transform: scale(1.02);
 }
 
-div.card-title{
-    width:100%;
+
+
+
+.card-title {
+    margin-bottom: 0.5rem;
+    position: relative;
+    font-size: 30px;
+    top: -20px;
 }
+
+div.card-img-overlay{
+    display: flex;
+    flex-direction:column;
+    align-items: left;
+    justify-content: center;
+}
+
+div.card-img-overlay{
+    background-color: rgba(0,0,0,0.5);
+}
+
+p.card-text:nth-child(odd){
+    position: absolute;
+    bottom: 15px;
+}
+
+img.card-img{
+    height: 18rem;
+}
+
+
 footer{
     margin-top: 100px;
     height: 86px;
@@ -132,5 +162,9 @@ footer{
     .row.w-75{
         /* background-color: orange; */
         width: 400px !important;
+    }
+    
+    button.btn{
+        margin-left: 5px;
     }
 }

@@ -192,12 +192,8 @@
                                 <!-- <button type="submit" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Done</button> -->
                                 <button type="submit" class="btn btn-primary" >Done</button>
                             </div>
-
                         </form>
-
-
                         </div>
-
                     </div>
                 </main>
                 

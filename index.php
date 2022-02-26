@@ -12,7 +12,12 @@
     $dbpass = '';
     $dbname = "courses";
 
-    $con = new mysqli($dbhost,$dbuser,$dbpass,$dbname);
+    try{
+      $con = new mysqli($dbhost,$dbuser,$dbpass,$dbname);
+    }catch(Exception $e){
+      die($e->getMessage());
+    }
+
     if($con->connect_error)
     {
         die('unable to connect to database '.$dbname);
@@ -86,7 +91,7 @@
                 <a class="nav-link" href="courses.php">Courses</a>
               </li>
               <li class="nav-item dropdown">
-                <a class="nav-link" href="#">Blog</a>
+                <a class="nav-link" href="blog.php">Blog</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="about.php" tabindex="-1" aria-disabled="true">About Us  </a>

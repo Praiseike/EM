@@ -5,6 +5,7 @@
     {
       $_SESSION['key'] = $pcrypt->gen_random_key();
     }
+
     $dbhost = 'localhost';
     $dbuser = 'root';
     $dbpass = '';
@@ -16,23 +17,34 @@
         die('unable to connect to database '.$dbname);
     }
 
-    $result = $con->query("SELECT * FROM posts");
-    $courses = Array();
-    if($result->num_rows > 0)
-    {
-        $count = 0;
-        while($row = $result->fetch_assoc())
-        {
-            array_push($courses,$row);     
-            $count++;
-        }
-        // in order to view the latest
-        $courses = array_reverse($courses);
-    }
-    else{
-        $_SESSION['message'] = 'Create courses and view them here';
-    }
+    $posts = Array();
 
+    if(isset($_GET['q'])){
+        $query = htmlspecialchars($_GET['q']);
+        $query = filter_var($query,FILTER_SANITIZE_STRING);
+
+        $stmt = $con->prepare("SELECT * FROM posts");
+        $result = $stmt->get_result();
+
+    }else{
+
+        $result = $con->query("SELECT * FROM posts");
+        if($result->num_rows > 0)
+        {
+            $count = 0;
+            while($row = $result->fetch_assoc())
+            {
+                array_push($posts,$row);     
+                $count++;
+            }
+            // in order to view the latest
+            $posts = array_reverse($posts);
+        }
+        else{
+            $_SESSION['message'] = 'Create courses and view them here';
+        }
+
+    }    
     $con->close();
 ?>
 
@@ -51,7 +63,6 @@
 </head>
 
 <body>
-    <!-- <img src="assets/images/grey-background.jpg" alt='background' class="background img-fluid"> -->
     <nav class="navbar fixed-top navbar-expand-lg navbar-light">
         <div class="container-fluid">
           <a class="navbar-brand" href="#">
@@ -84,54 +95,40 @@
       </nav>
 
     <section class="section-0">
-      <!-- <div class='container form-container'>
-        <form action="" method='get'>
-          <input type='search' class='form-control'>
-          <button type='submit' class='btn btn-primary'>search</button>
-        </form>
-      </div> -->
+      
         <div class="container form-container">
             <div class='row w-75'>
-                <form class="d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
+                <form action='blog.php' method='get' class="d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
                     <div class="input-group">
-                        <input class="form-control" type="text" placeholder="Search for..." aria-label="Search for..." aria-describedby="btnNavbarSearch" />
-                        <button class="btn btn-primary w-25" id="btnNavbarSearch" type="button"><i class="fas fa-search"></i></button>
+                        <input class="form-control" required type="text" placeholder="Search for..." aria-label="Search post..." name='q' aria-describedby="btnNavbarSearch" />
+                        <button class="btn btn-primary w-25" id="btnNavbarSearch" type="submit"><i class="fas fa-search"></i></button>
                     </div>
                 </form>      
             </div>
         </div>
     
-        <div class="flex-container">
-
-
-            <div class="card bg-dark text-white">
-                <img class="card-img" src="assets\images\fabio-oyXis2kALVg-unsplash.jpg" alt="Card image">
-                <div class="card-img-overlay">
-                    <h5 class="card-title">Card title</h5>
-                    <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                    <p class="card-text">Last updated 3 mins ago</p>
+        <?php if(count($posts) > 0) :?>
+            <div class="flex-container">
+            <?php foreach($posts as $post) : ?>
+                <div class="card bg-dark text-white">
+                    <img class="card-img" src="posts/<?= $post['CODE'].'/'.$post['THUMBNAIL'] ?>" alt="Card image">
+                    <div class="card-img-overlay">
+                        <h5 class="card-title"><?= strtoupper($post['TITLE'])?></h5>
+                        <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                        <p class="card-text"><?= $post['TIMESTAMP']?></p>
+                    </div>
+                </div>
+            <?php endforeach ?>
+            </div>
+        <?php else : ?>
+            <div class="container p-5">
+                <div class="row align-items-center justify-content-center">
+                    <img style='width: 20rem; height: 20rem;' src="assets/illustrations/no-data.svg" class="img-fluid">
+                    <div style="text-align: center;"><h3>No Result Found</h3></div>
+                    <div style="text-align: center;"><a href="blog.php"><i style="font-size: 3rem;" class="fas fa-arrow-left"></i></a></div>
                 </div>
             </div>
-            
-            <div class="card bg-dark text-white">
-                <img class="card-img" src="assets\images\fabio-oyXis2kALVg-unsplash.jpg" alt="Card image">
-                <div class="card-img-overlay">
-                    <h5 class="card-title">Card title</h5>
-                    <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                    <p class="card-text">Last updated 3 mins ago</p>
-                </div>
-            </div>
-        
-            <div class="card bg-dark text-white">
-                <img class="card-img" src="assets\images\fabio-oyXis2kALVg-unsplash.jpg" alt="Card image">
-                <div class="card-img-overlay">
-                    <h5 class="card-title">Card title</h5>
-                    <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                    <p class="card-text">Last updated 3 mins ago</p>
-                </div>
-            </div>
-
-        </div>
+        <?php endif ?>
 
         
 

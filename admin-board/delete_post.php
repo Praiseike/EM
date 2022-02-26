@@ -1,6 +1,28 @@
 <?php
     session_start();
     
+    function rrmdir($dir)
+    {
+        if(is_dir($dir))
+        {
+            $objects = scandir($dir);
+            foreach($objects as $object)
+            {
+                if($object != "." && $object != "..")
+                {
+                    if(is_dir($dir."/".$object) && is_link($dir."/".$object))
+                    {
+                        rrmdir($dir."/".$object);
+                    }
+                    else{
+                        unlink($dir."/".$object);
+                    }
+                }
+            }
+            rmdir($dir);
+        }
+    }
+
     
     if(!isset($_SESSION['admin-loggedin']))
     {
@@ -20,8 +42,11 @@
             $stmt->execute();
             $stmt->close();
             $con->close();
+            $path = '../posts/'.$id;
+            if(file_exists($path)){
+                rrmdir($path);
+            }
             header("Location: view_posts");
-            
         }    
         
     }

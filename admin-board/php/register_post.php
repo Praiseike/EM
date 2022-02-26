@@ -1,6 +1,6 @@
 <?php 
 
-    if(isset($_POST['post-title'],$_POST['post-text'],$_FILES['post-image']))
+    if(isset($_POST['post-title'],$_POST['post-text'],$_FILES['post-image'],$_POST['post-description']))
     {
 
         $con = new mysqli("localhost","root","",'posts');
@@ -9,8 +9,9 @@
         }
 
 
-        $title = $_POST['post-title'];
-        $text = $_POST['post-text'];
+        $title = filter_var($_POST['post-title'],FILTER_SANITIZE_STRING);
+        $text = filter_var($_POST['post-text'],FILTER_SANITIZE_STRING);
+        $description = filter_var($_POST['post-description'],FILTER_SANITIZE_STRING);
         
         $code = uniqid();
         
@@ -73,8 +74,8 @@
 
         $title = filter_var($title,FILTER_SANITIZE_STRING);
         $timestamp = Date('Y-m-d');
-        $stmt = $con->prepare("INSERT INTO posts(TITLE,CONTENT,CODE,TIMESTAMP,THUMBNAIL) VALUES(?, ?, ?, ?, ?) ");
-        $stmt->bind_param('sssss',$title,$text,$code,$timestamp,$thumbnail);
+        $stmt = $con->prepare("INSERT INTO posts(TITLE,DESCRIPTION,CONTENT,CODE,TIMESTAMP,THUMBNAIL) VALUES(?, ?, ?, ?, ?, ?) ");
+        $stmt->bind_param('ssssss',$title,$description,$text,$code,$timestamp,$thumbnail);
         $s = $stmt->execute();
         if(!$s){
             die("unable to insert into table posts");

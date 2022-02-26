@@ -4,40 +4,6 @@
     {
         header('Location: login');
     }
-
-
-
-    if(isset($_POST['post-title'],$_POST['post-text']))
-    {
-
-        $con = new mysqli("localhost","root","",'posts');
-        if($con->connect_errno){
-            die("Unable to connect to database posts");
-        }
-
-
-        $title = $_POST['post-title'];
-        $text = $_POST['post-text'];
-    
-
-
-        $title = filter_var($title,FILTER_SANITIZE_STRING);
-        $code = uniqid();
-        $timestamp = Date('Y-m-d');
-        $stmt = $con->prepare("INSERT INTO posts(TITLE,CONTENT,CODE,TIMESTAMP) VALUES(?, ?, ?, ?) ");
-        $stmt->bind_param('ssss',$title,$text,$code,$timestamp);
-        $s = $stmt->execute();
-        if(!$s){
-            die("unable to insert into table posts");
-        }else{
-
-        }
-
-    }
-
-
-
-
 ?>
 
 <!DOCTYPE html>
@@ -163,15 +129,38 @@
                         </ol>
 
                     <div class="container">
-                        <form action='create_post' method='post'>
+                        <form action='php/register_post' method='post' enctype="multipart/form-data">
                             <div class="form-group mb-3">
                                 <label for='title'>Enter title</label>
-                                <input required type='text' class='form-control' name='post-title' id='title'>
+                                <input required type='text' maxlength class='form-control' name='post-title' id='title'>
+                                <div id="text-help" class='form-text'>Max Length 100</div>
+                            
                             </div>
+
+                            <div class="form-group mb-3">
+                                <label for='title'>Enter Desription</label>
+                                <input required type='text' class='form-control' maxlength='150' name='post-description' id='description'>
+                                <div id="text-help" class='form-text'>Max Length 150</div>
+                            </div>
+
+                            <div class="form-group mb-3">
+                                <label for='image'>Select image</label>
+                                <input required type='file' class='form-control' name='post-image' id='image'>
+                            </div>
+
+                            <?php if(isset($_SESSION['error-msg'])) :?>
+                                <div class="mb-3">
+                                    <div class="alert alert-danger" role='alert'>
+                                        <?= $_SESSION['error-msg'] ?>
+                                        <?php $_SESSION['error-msg'] = null ?>
+                                    </div>
+                                </div>
+                            <?php endif ?>
                             <div class="form-group mb-3">
                                 <label for='text'>Enter text</label>
                                 <textarea required class='form-control' rows="12" name='post-text' id='text'></textarea>
                             </div>
+
                             <button type='submit' class='btn btn-primary'>post</button>
                         </form>
 
