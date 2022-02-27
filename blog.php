@@ -1,6 +1,6 @@
 <?php
     session_start();
-    include 'pcrypt.php';
+    include 'controllers/pcrypt.php';
     if(!isset($_SESSION['key']))
     {
       $_SESSION['key'] = $pcrypt->gen_random_key();
@@ -9,7 +9,7 @@
     $dbhost = 'localhost';
     $dbuser = 'root';
     $dbpass = '';
-    $dbname = "posts";
+    $dbname = "em-db";
 
     $con = new mysqli($dbhost,$dbuser,$dbpass,$dbname);
     if($con->connect_error)
@@ -106,19 +106,31 @@
                 </form>      
             </div>
         </div>
-    
+        
         <?php if(count($posts) > 0) :?>
-            <div class="flex-container">
-            <?php foreach($posts as $post) : ?>
-                <div class="card bg-dark text-white">
-                    <img class="card-img" src="posts/<?= $post['CODE'].'/'.$post['THUMBNAIL'] ?>" alt="Card image">
+            
+            <div class='container main-post'>
+                <div class="card bg-dark text-white" style="width: 100%;height: 30rem"   >
+                    <img style="height: 100%;" class="card-img" src="posts/<?= $posts[0]['CODE'].'/'.$posts[0]['THUMBNAIL'] ?>" alt="Card image">
                     <div class="card-img-overlay">
-                        <h5 class="card-title"><?= strtoupper($post['TITLE'])?></h5>
-                        <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                        <p class="card-text"><?= $post['TIMESTAMP']?></p>
+                        <h5 class="card-title"  style="font-size: 3rem;"><?= strtoupper($posts[0]['TITLE'])?></h5>
+                        <p class="card-text" style="font-size: 2rem;">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                        <p class="card-text"><?= $posts[0]['TIMESTAMP']?></p>
                     </div>
                 </div>
-            <?php endforeach ?>
+            </div>
+        
+            <div class="flex-container">
+            <?php for($i = 1;$i < count($posts); $i++) : ?>
+                <div class="card bg-dark text-white">
+                    <img class="card-img" src="posts/<?= $posts[$i]['CODE'].'/'.$posts[$i]['THUMBNAIL'] ?>" alt="Card image">
+                    <div class="card-img-overlay">
+                        <h5 class="card-title"><?= strtoupper($posts[$i]['TITLE'])?></h5>
+                        <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                        <p class="card-text"><?= $posts[$i]['TIMESTAMP']?></p>
+                    </div>
+                </div>
+            <?php endfor ?>
             </div>
         <?php else : ?>
             <div class="container p-5">

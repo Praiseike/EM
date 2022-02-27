@@ -1,4 +1,7 @@
-<?php session_start(); ?>
+<?php
+    include 'controllers/authController.php';
+    
+?>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -13,7 +16,6 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>
     </head>
     <body class="">
-    <img src="assets/images/grey-background.jpg" alt='background' class="background img-fluid">
 
         <div class="layoutAuthentication container-fluid">
             <div class="row">
@@ -28,7 +30,7 @@
                         <div class="card shadow-lg border-0 rounded-lg mt-5">
                             <div class="card-header"><h3 class="text-center font-weight-light my-4">Login</h3></div>
                             <div class="card-body">
-                                <form method="post" action="validate.php">
+                                <form method="post" action="login.php">
                                     <div class="form-floating mb-3">
                                         <input class="form-control" id="inputEmail" name="email" type="email" placeholder="name@example.com" />
                                         <label for="inputEmail">Email address</label>
@@ -50,7 +52,7 @@
                                     </div>
                                     <div class="d-flex align-items-center justify-content-between mt-4 mb-0">
                                         <a class="small" href="password.html">Forgot Password?</a>
-                                        <button class="btn btn-primary" type='submit'>Login</button>
+                                        <button class="btn btn-primary" name='login-btn' type='submit'>Login</button>
                                     </div>
                                     <?php 
                                         echo "<input type='hidden' name='location' value='";

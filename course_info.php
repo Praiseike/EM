@@ -1,7 +1,7 @@
 <?php
     session_start();
  
-    include 'pcrypt.php';
+    include 'controllers/pcrypt.php';
 
     if(!isset($_SESSION['key']))
     {
@@ -12,7 +12,7 @@
     $dbhost = 'localhost';
     $dbuser = 'root';
     $dbpass = '';
-    $dbname = "courses";
+    $dbname = "em-db";
 
     $con = new mysqli($dbhost,$dbuser,$dbpass,$dbname);
     if($con->connect_error)
@@ -64,7 +64,7 @@
     <title>Empowered Blockchain Hub</title>
     <link href="assets/bootstrap-5.0.2-dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-uWxY/CJNBR+1zjPWmfnSnVxwRheevXITnMqoEIeG1LJrdI0GlVs/9cVSyPYXdcSF" crossorigin="anonymous"> -->
-    <link href="assets/fontawesome-free-6.0.0-beta3-web/css/all.css" rel="stylesheet">
+    <!-- <link href="assets/fontawesome-free-6.0.0-beta3-web/css/all.css" rel="stylesheet"> -->
     <link href="./css/course_info.css" rel="stylesheet">
 
 </head>
@@ -110,7 +110,7 @@
         <div class="head">
             <div class="title-text">
               <h1><?= $title ?></h1>
-              <p><?= substr($description,0,45) ?>...</p>
+              <!-- <p><?= substr($description,0,45) ?>...</p> -->
               <!-- <p> some kind of important descriptive text for display some kind of important descriptive text for display</p> -->
             </div>
             <div class="price">
@@ -126,7 +126,8 @@
 
         <div class="course-description text-center p-5">
           <h2>Course Description</h2>
-          <p style='font-size: 25px;'><?= $description[0].strtolower(substr($description,1,strlen($description))) ?></p>
+          <p style='text-align: left;font-size: 25px;'><?= $description[0].strtolower(substr($description,1,strlen($description))) ?>
+          </p>
         </div>
         <div class="course-content text-center p-5">
           <h2>Course Content </h2>

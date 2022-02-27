@@ -1,6 +1,6 @@
 <?php
-    session_start();
-    
+    include 'controllers/authController.php';
+
 ?>
 
 <!DOCTYPE html>
@@ -11,7 +11,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
         <meta name="author" content="" />
-        <title>Register - SB Admin</title>
+        <title>Signup - Empowered Blockchain Hub</title>
         <link href="css/styles.css" rel="stylesheet" />
         <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>
     </head>
@@ -25,7 +25,7 @@
                                 <div class="card shadow-lg border-0 rounded-lg mt-5">
                                     <div class="card-header"><h3 class="text-center font-weight-light my-4">Create Account</h3></div>
                                     <div class="card-body">
-                                        <form action="register.php" method="post">
+                                        <form action='signup.php' method="post">
                                             <div class="row mb-3">
                                                 <div class="col-md-6">
                                                     <div class="form-floating mb-3 mb-md-0">
@@ -59,7 +59,7 @@
                                                 </div>
                                             </div>
                                             <div class="mt-4 mb-0">
-                                                <button type="submit" class=" w-100 btn btn-primary d-grid">Create Account</button>
+                                                <button type="submit" name='signup-btn' class=" w-100 btn btn-primary d-grid">Create Account</button>
                                             </div>
                                         </form>
                                     </div>

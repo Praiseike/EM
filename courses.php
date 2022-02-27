@@ -1,6 +1,8 @@
 <?php
     session_start();
-    include 'pcrypt.php';
+    
+    include 'controllers/pcrypt.php';
+
     if(!isset($_SESSION['key']))
     {
       $_SESSION['key'] = $pcrypt->gen_random_key();
@@ -8,7 +10,7 @@
     $dbhost = 'localhost';
     $dbuser = 'root';
     $dbpass = '';
-    $dbname = "courses";
+    $dbname = "em-db";
 
     $con = new mysqli($dbhost,$dbuser,$dbpass,$dbname);
     if($con->connect_error)
@@ -84,12 +86,7 @@
       </nav>
 
     <section class="section-0">
-      <!-- <div class='container form-container'>
-        <form action="" method='get'>
-          <input type='search' class='form-control'>
-          <button type='submit' class='btn btn-primary'>search</button>
-        </form>
-      </div> -->
+
       <div class="container form-container">
         <div class='row w-75'>
           <form class="d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">

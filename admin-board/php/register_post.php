@@ -3,7 +3,7 @@
     if(isset($_POST['post-title'],$_POST['post-text'],$_FILES['post-image'],$_POST['post-description']))
     {
 
-        $con = new mysqli("localhost","root","",'posts');
+        $con = new mysqli("localhost","root","",'em-db');
         if($con->connect_errno){
             die("Unable to connect to database posts");
         }

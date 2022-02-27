@@ -2,7 +2,7 @@
   $database_host = 'localhost';
   $database_user = 'root';
   $database_pass = '';
-  $database_name = 'courses';
+  $database_name = 'em-db';
 
   $con = new mysqli($database_host,$database_user,$database_pass,$database_name);
   

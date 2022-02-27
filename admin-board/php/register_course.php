@@ -1,7 +1,7 @@
 <?php
     session_start();
     
-    $dbname = "courses";
+    $dbname = "em-db";
     $dbhost = 'localhost';
     $dbuser = 'root';
     $dbpass = '';

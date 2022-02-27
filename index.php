@@ -1,6 +1,7 @@
 <?php 
     session_start();
-    include 'pcrypt.php';
+    include 'controllers/pcrypt.php';
+    
     if(!isset($_SESSION['key']))
     {
       $_SESSION['key'] = $pcrypt->gen_random_key();
@@ -10,7 +11,7 @@
     $dbhost = 'localhost';
     $dbuser = 'root';
     $dbpass = '';
-    $dbname = "courses";
+    $dbname = "em-db";
 
     try{
       $con = new mysqli($dbhost,$dbuser,$dbpass,$dbname);

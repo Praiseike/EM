@@ -1,7 +1,7 @@
 <?php
     session_start();
     
-    include 'pcrypt.php';
+    include 'controllers/pcrypt.php';
 
     if(!isset($_SESSION['key']))
     {
@@ -12,7 +12,7 @@
     $dbhost = 'localhost';
     $dbuser = 'root';
     $dbpass = '';
-    $dbname = "courses";
+    $dbname = "em-db";
 
     $con = new mysqli($dbhost,$dbuser,$dbpass,$dbname);
     if($con->connect_error)
@@ -62,7 +62,8 @@
         $curl = curl_init();
         $email = filter_var($_SESSION['email'],FILTER_VALIDATE_EMAIL);
         $amount = filter_var($price,FILTER_VALIDATE_INT);
-        $callback_url = "em/callback.php";
+        $callback_url = "https://localhost/controllers/callback.php";
+        
         curl_setopt_array($curl,array(
             CURLOPT_URL => "https://api.paystack.co/transaction/initialize",
             CURLOPT_RETURNTRANSFER => true,
@@ -94,7 +95,7 @@
         if(!$tranx["status"]){
             print_r("API returned error: ".$tranx["message"]);
         }
-        header('Location: ' . $tranx['data']['authorization_url']);
+        header('Location: '.$tranx['data']['authorization_url']);
 
     }
 
