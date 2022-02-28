@@ -14,7 +14,8 @@ $mailer = new Swift_Mailer($transport);
 
 function sendVerificationEmail($userEmail,$token){
     global $mailer;
-    $body = "<!DOCTYPE html>
+    $body = "
+    <!DOCTYPE html>
         <html lang='en'>
         <head>
 
@@ -41,7 +42,8 @@ function sendVerificationEmail($userEmail,$token){
                     <a href='https://localhost/cwa/verify-user/verify_email.php?token='".$token."'>Verify Email!</a>
                 </div>
             </body>
-            </html>";
+            </html>
+        ";
 
     // creating message
     $message = (new Swift_Message('Verify your email'))

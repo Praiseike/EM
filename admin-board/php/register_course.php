@@ -1,16 +1,6 @@
 <?php
     session_start();
-    
-    $dbname = "em-db";
-    $dbhost = 'localhost';
-    $dbuser = 'root';
-    $dbpass = '';
-
-    $con = new mysqli($dbhost,$dbuser,$dbpass,$dbname);
-    if($con->connect_error)
-    {
-        die('unable to connect to database '.$dbname);
-    }
+    include 'db.php';
     
     if(isset($_POST['course-title'],$_POST['course-description'],$_POST['course-price'],$_FILES['course-thumbnail']))
     {

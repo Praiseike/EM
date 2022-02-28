@@ -5,33 +5,35 @@
     {
       $_SESSION['key'] = $pcrypt->gen_random_key();
     }
-
-    $dbhost = 'localhost';
-    $dbuser = 'root';
-    $dbpass = '';
-    $dbname = "em-db";
-
-    $con = new mysqli($dbhost,$dbuser,$dbpass,$dbname);
-    if($con->connect_error)
-    {
-        die('unable to connect to database '.$dbname);
-    }
-
+    include 'database/db.php';
+    
     $posts = Array();
+    $r = Array();
+    $count = 0;
 
     if(isset($_GET['q'])){
         $query = htmlspecialchars($_GET['q']);
         $query = filter_var($query,FILTER_SANITIZE_STRING);
 
-        $stmt = $con->prepare("SELECT * FROM posts");
-        $result = $stmt->get_result();
-
+        $result = $con->query("SELECT * FROM posts");
+        if($result->num_rows > 0){
+            while($row = $result->fetch_assoc())
+            {
+                array_push($r,$row);     
+                $count++;
+            }
+        }        
+        
+        foreach($r as $p){
+            if(stristr(strtolower($p['TITLE']),strtolower($query)) != null){
+                array_push($posts,$p);
+            }
+        }
     }else{
 
         $result = $con->query("SELECT * FROM posts");
         if($result->num_rows > 0)
         {
-            $count = 0;
             while($row = $result->fetch_assoc())
             {
                 array_push($posts,$row);     
@@ -57,7 +59,7 @@
     <title>Empowered Blockchain Hub</title>
     <link href="assets/bootstrap-5.0.2-dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-uWxY/CJNBR+1zjPWmfnSnVxwRheevXITnMqoEIeG1LJrdI0GlVs/9cVSyPYXdcSF" crossorigin="anonymous"> -->
-    <link href="assets/fontawesome-free-6.0.0-beta3-web/css/all.css" rel="stylesheet">
+    <link href="localhost/fontawesome-free-6.0.0-beta3-web/css/all.css" rel="stylesheet">
     <link href="./css/blog.css" rel="stylesheet">
 
 </head>
@@ -77,7 +79,7 @@
                 <a class="nav-link" aria-current="page" href="index.php">Home</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#">Courses</a>
+                <a class="nav-link" href="courses.php">Courses</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link active"href="#">Blog</a>
@@ -110,9 +112,9 @@
         <?php if(count($posts) > 0) :?>
             
             <div class='container main-post'>
-                <div class="card bg-dark text-white" style="width: 100%;height: 30rem"   >
+                <div class="card bg-dark text-white" style="width: 100%;height: 35rem"   >
                     <img style="height: 100%;" class="card-img" src="posts/<?= $posts[0]['CODE'].'/'.$posts[0]['THUMBNAIL'] ?>" alt="Card image">
-                    <div class="card-img-overlay">
+                    <div class="card-img-overlay text-center">
                         <h5 class="card-title"  style="font-size: 3rem;"><?= strtoupper($posts[0]['TITLE'])?></h5>
                         <p class="card-text" style="font-size: 2rem;">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
                         <p class="card-text"><?= $posts[0]['TIMESTAMP']?></p>

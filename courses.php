@@ -7,32 +7,47 @@
     {
       $_SESSION['key'] = $pcrypt->gen_random_key();
     }
-    $dbhost = 'localhost';
-    $dbuser = 'root';
-    $dbpass = '';
-    $dbname = "em-db";
 
-    $con = new mysqli($dbhost,$dbuser,$dbpass,$dbname);
-    if($con->connect_error)
-    {
-        die('unable to connect to database '.$dbname);
-    }
-
+    include 'database/db.php';
+    
     $result = $con->query("SELECT * FROM courses");
     $courses = Array();
-    if($result->num_rows > 0)
-    {
-        $count = 0;
-        while($row = $result->fetch_assoc())
-        {
-            array_push($courses,$row);     
-            $count++;
-        }
-        // in order to view the latest
-        $courses = array_reverse($courses);
-    }
-    else{
-        $_SESSION['message'] = 'Create courses and view them here';
+    $count = 0;
+    $r = Array();
+
+    if(isset($_GET['q'])){
+
+      $query = htmlspecialchars($_GET['q']);
+      $query = filter_var($query,FILTER_SANITIZE_STRING);
+
+      if($result->num_rows > 0)
+      {
+          while($row = $result->fetch_assoc())
+          {
+              array_push($r,$row);     
+              $count++;
+          }
+          foreach($r as $c){
+            if(stristr(strtolower($c['TITLE']),strtolower($query)) != null){
+              array_push($courses,$c);
+            }
+          }
+          // $courses = array_reverse($courses);
+      }
+    }else{
+      if($result->num_rows > 0)
+      {
+          while($row = $result->fetch_assoc())
+          {
+              array_push($courses,$row);     
+              $count++;
+          }
+          $courses = array_reverse($courses);
+      }
+      else{
+          $count = 0;
+          $_SESSION['message'] = 'Create courses and view them here';
+      }
     }
 
     $con->close();
@@ -89,34 +104,41 @@
 
       <div class="container form-container">
         <div class='row w-75'>
-          <form class="d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
+          <form method='get' action='courses.php' class="d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
             <div class="input-group">
-                <input class="form-control" type="text" placeholder="Search for..." aria-label="Search for..." aria-describedby="btnNavbarSearch" />
-                <button class="btn btn-primary w-25" id="btnNavbarSearch" type="button"><i class="fas fa-search"></i></button>
+                <input name='q'class="form-control" type="text" placeholder="Search courses..." aria-label="Search courses..." aria-describedby="btnNavbarSearch" />
+                <button class="btn btn-primary w-25" id="btnNavbarSearch" type="submit"><i class="fas fa-search"></i></button>
             </div>
           </form>      
         </div>
       </div>
     
-      <div class="flex-container">
+      <?php if(count($courses) > 0) :?>
+        <div class="flex-container">
+          <?php foreach($courses as $course): ?>
+              <div class="card shadow">
+                  <a href="course_info.php?p=<?= $pcrypt->encrypt($course['CODE'],$_SESSION['key']) ?>"><img src="videos/<?= $course['CODE'].'/'.$course['THUMBNAIL']?>" class="card-img" alt="..."></a>
+                  <div class="card-body">
+                      <h5 class="card-title"><?= $course['TITLE'] ?></h5>
+                      <p class="card-text">
+                          <?= substr($course['DESCRIPTION'],0,42)?>...
+                      </p>
+                      <div class="price btn">$<?= $course['PRICE'] ?></div>
+                      <a href="course_info.php?p=<?= $pcrypt->encrypt($course['CODE'],$_SESSION['key']) ?>" class="btn btn-primary">info</a>
+                  </div>
+              </div>
+          <?php endforeach ?>
+        </div>
 
-        <?php foreach($courses as $course): ?>
-            
-            <div class="card shadow">
-                <a href="course_info.php?p=<?= $pcrypt->encrypt($course['CODE'],$_SESSION['key']) ?>"><img src="videos/<?= $course['CODE'].'/'.$course['THUMBNAIL']?>" class="card-img" alt="..."></a>
-                <div class="card-body">
-                    <h5 class="card-title"><?= $course['TITLE'] ?></h5>
-                    <p class="card-text">
-                        <?= substr($course['DESCRIPTION'],0,42)?>
-                        <span>...</span>
-                    </p>
-                    <div class="price btn">$<?= $course['PRICE'] ?></div>
-                    <a href="course_info.php?p=<?= $pcrypt->encrypt($course['CODE'],$_SESSION['key']) ?>" class="btn btn-primary">info</a>
+        <?php else : ?>
+            <div class="container p-5">
+                <div class="row align-items-center justify-content-center">
+                    <img style='width: 20rem; height: 20rem;' src="assets/illustrations/no-data.svg" class="img-fluid">
+                    <div style="text-align: center;"><h3>No Result Found</h3></div>
+                    <div style="text-align: center;"><a href="blog.php"><i style="font-size: 3rem;" class="fas fa-arrow-left"></i></a></div>
                 </div>
             </div>
-            
-        <?php endforeach ?>
-        </div>
+        <?php endif ?>
     </section>  
     
     <footer>

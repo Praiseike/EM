@@ -35,8 +35,8 @@
         {
             $id = $_GET['id'];
             // echo "Deleting course with id ".$id;
-            
-            $con = new mysqli("localhost","root","","posts");
+            include 'php/db.php';
+
             $stmt = $con->prepare("DELETE FROM posts WHERE CODE = ?");
             $stmt->bind_param("s",$id);
             $stmt->execute();

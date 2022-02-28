@@ -6,11 +6,8 @@
     }
     
    
-    $con = new mysqli("localhost","root","","posts");
-    if($con->connect_errno){
-        die("Unble to connect to database posts");
-    }
-    
+    include 'php/db.php';
+
     
     $result = $con->query("SELECT * FROM posts");
     $posts = Array();

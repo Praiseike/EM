@@ -9,16 +9,8 @@
       header("Location: ./index.php");
     }
 
-    $dbhost = 'localhost';
-    $dbuser = 'root';
-    $dbpass = '';
-    $dbname = "em-db";
-
-    $con = new mysqli($dbhost,$dbuser,$dbpass,$dbname);
-    if($con->connect_error)
-    {
-        die('unable to connect to database '.$dbname);
-    }
+    include 'database/db.php';
+  
 
     if(isset($_GET['p']))
     {

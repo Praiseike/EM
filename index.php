@@ -8,21 +8,7 @@
     }
 
 
-    $dbhost = 'localhost';
-    $dbuser = 'root';
-    $dbpass = '';
-    $dbname = "em-db";
-
-    try{
-      $con = new mysqli($dbhost,$dbuser,$dbpass,$dbname);
-    }catch(Exception $e){
-      die($e->getMessage());
-    }
-
-    if($con->connect_error)
-    {
-        die('unable to connect to database '.$dbname);
-    }
+    include 'database/db.php';
 
     $result = $con->query("SELECT * FROM courses");
     $courses = Array();

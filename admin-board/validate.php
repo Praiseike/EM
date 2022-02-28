@@ -2,16 +2,8 @@
     session_start();
     if(isset($_POST['email'],$_POST['password']))
     {
-        $database_host = 'localhost';
-        $database_user = 'root';
-        $database_pass = '';
-        $database_name = 'accounts';
+        include 'php/db.php';
 
-        $con = new mysqli($database_host,$database_user,$database_pass,$database_name);
-        if($con->connect_error)
-        {
-            exit('<h2>failed to connect to database</h2><br><h3>please contact your systems administrator</h3>');
-        }
         try{
 
         

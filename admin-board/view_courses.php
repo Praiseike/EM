@@ -8,8 +8,6 @@
     include 'php/db.php';
 
 
-    
-    
     $result = $con->query("SELECT * FROM courses");
     $courses = Array();
     $count = 0;

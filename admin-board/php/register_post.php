@@ -2,12 +2,7 @@
 
     if(isset($_POST['post-title'],$_POST['post-text'],$_FILES['post-image'],$_POST['post-description']))
     {
-
-        $con = new mysqli("localhost","root","",'em-db');
-        if($con->connect_errno){
-            die("Unable to connect to database posts");
-        }
-
+        include 'db.php';
 
         $title = filter_var($_POST['post-title'],FILTER_SANITIZE_STRING);
         $text = filter_var($_POST['post-text'],FILTER_SANITIZE_STRING);

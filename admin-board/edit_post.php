@@ -4,12 +4,8 @@
     {
         header('Location: login');
     }
+    include 'php/db.php';
 
-    $con = new mysqli("localhost","root","","posts");
-    if($con->connect_errno){
-        die("Unble to connect to datases posts");
-    }
-    
 
 
     if(isset($_GET['id'])){

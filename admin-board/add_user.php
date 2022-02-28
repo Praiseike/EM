@@ -5,10 +5,8 @@
     }
     if(isset($_POST['email'],$_POST['first-name'],$_POST['last-name'],$_POST['password']))
     {
-        $database_host = 'localhost';
-        $database_user = 'root';
-        $database_pass = '';
-        $database_name = 'accounts';
+
+        include 'database/db.php';
 
         $username = $_POST['first-name'].' '.$_POST['last-name'];
         $username = strip_tags($username);
@@ -17,11 +15,6 @@
 
         $email = strtolower($_POST['email']);
     
-        $con = new mysqli($database_host,$database_user,$database_pass,$database_name);
-        if($con->connect_errno)
-        {
-            die('<h2>failed to connect to database</h2><br><h3>please contact your systems administrator</h3>');
-        }
         try{
             $stmt = $con->prepare("SELECT * FROM admins WHERE EMAIL = ?");
 
